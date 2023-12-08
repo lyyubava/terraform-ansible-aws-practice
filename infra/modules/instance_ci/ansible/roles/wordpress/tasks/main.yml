@@ -1,0 +1,22 @@
+---
+
+- name: Update apt package cache
+  become: true  # Run the task with sudo/root privileges
+  become_user: root
+  apt:
+    update_cache: yes
+- name: Install required packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - apache2
+    - php
+    - php-mysql
+    - libapache2-mod-php
+
+- name: Download and extract WordPress
+  get_url:
+    url: "https://wordpress.org/latest.tar.gz"
+    dest: "/var/www/html/"
+  notify: reload apache

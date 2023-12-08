@@ -1,0 +1,35 @@
+---
+- name: Install Percona MySQL
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - curl
+- name: Download Percona Repository Package
+  get_url:
+    url: https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+    dest: /tmp/percona-release_latest.generic_all.deb
+
+- name: Install Required Packages (gnupg2, lsb-release)
+  apt:
+    name:
+      - gnupg2
+      - lsb-release
+    state: present
+
+- name: Install Percona Repository Package
+  apt:
+    deb: /tmp/percona-release_latest.generic_all.deb
+    state: present
+
+- name: Update APT Packages
+  apt:
+    update_cache: yes
+
+- name: Set Up Percona Release Repository for Percona Server 8.0
+  command: sudo percona-release setup ps80
+
+- name: Install Percona Server
+  apt:
+    name: percona-server-server
+    state: present

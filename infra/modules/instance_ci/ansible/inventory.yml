@@ -1,0 +1,20 @@
+all:
+  hosts:
+    app1:
+      ansible_host: ${WORDPRESS_PRIVATE_IP}
+    database:
+      ansible_host: ${DATABASE_PRIVATE_IP}
+    traefik:
+      ansible_host: ${TRAEFIK_PUBLIC_IP}
+
+wordpress_instances:
+  hosts:
+    app1:
+
+database_instances:
+  hosts:
+    database:
+
+proxy_instances:
+  hosts:
+    traefik:

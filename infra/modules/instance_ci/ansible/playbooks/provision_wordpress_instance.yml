@@ -1,0 +1,8 @@
+---
+- hosts: wordpress_instances
+  connection: ssh
+  remote_user: root
+  become: true
+
+  roles:
+    - wordpress

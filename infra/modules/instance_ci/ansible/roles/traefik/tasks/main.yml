@@ -1,0 +1,10 @@
+- name: Download Traefik
+  get_url:
+    url: "https://github.com/traefik/traefik/releases/download/v2.10.7/traefik_v2.10.7_linux_amd64.tar.gz"
+    dest: "/tmp/traefik"
+
+- name: Extract Traefik tarball
+  ansible.builtin.unarchive:
+    src: "/tmp/traefik"
+    dest: "/opt"
+    remote_src: yes

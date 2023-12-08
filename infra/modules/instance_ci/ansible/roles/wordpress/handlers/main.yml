@@ -1,0 +1,5 @@
+---
+- name: reload apache
+  shell: /usr/sbin/apachectl restart
+  become: yes
+

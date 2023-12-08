@@ -1,0 +1,8 @@
+---
+- hosts: proxy_instances
+  connection: ssh
+  remote_user: root
+  become: true
+
+  roles:
+    - traefik
