@@ -18,7 +18,6 @@ data "template_file" "userdata" {
   template = var.stateful ? file(format("%s/userdata.tpl", path.module)) : file(format("%s/userdata_stateless.tpl", path.module))
   vars = {
     SSH_KEYS  = join("\n", var.ssh_keys)
-    BUCKET    = aws_s3_bucket.bucket.id
     VOLUME_ID = var.stateful ? aws_ebs_volume.stateful_data[0].id : ""
     MOUNTPOINT = var.mountpoint
   }

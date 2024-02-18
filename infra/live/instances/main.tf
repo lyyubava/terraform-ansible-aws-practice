@@ -28,6 +28,10 @@ data "aws_ami" "debian_10" {
     name   = "root-device-type"
     values = ["ebs"]
   }
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
   owners = ["136693071363"]
 }
 
@@ -74,7 +78,7 @@ module "ci_instance" {
   stateful                  = var.ci_instance.stateful
   attach_public_ip          = true
   database_private_ip       = module.db_instance.ec2_private_ip
-  wordpress_private_ip       = module.wordpress_instance.ec2_private_ip
+  wordpress_private_ip      = module.wordpress_instance.ec2_private_ip
   traefik_public_ip         = module.traefik_instance.ec2_public_ip
   tags                      = { "Name" : var.ci_instance.name }
 }

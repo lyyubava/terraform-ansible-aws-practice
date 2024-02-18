@@ -10,15 +10,10 @@ echo "${SSH_KEYS}" >>/root/.ssh/authorized_keys
 apt-get update
 apt-get -yq install \
     awscli \
-    python3-pip \
-    python3-jinja2 \
-    python3-boto3 \
     unzip \
     jq \
     nvme-cli
-
-mkdir -p ${MOUNTPOINT}
-aws s3 cp s3://${BUCKET}/ebsctl/main.py /usr/sbin/ebsctl
-chmod 0700 /usr/sbin/ebsctl
-ebsctl --mountpoint ${MOUNTPOINT} --label data --mkfs ext4 --volume_id ${VOLUME_ID}
-userdel ubuntu
+wget -O /tmp/ebsctl https://github.com/lyyubava/ebsctl-go/releases/download/v0.1.0/ebsctl_$(dpkg --print-architecture).tar
+tar -xf /tmp/ebsctl -C /usr/sbin
+rm /tmp/ebsctl
+ebsctl --mountpoint ${MOUNTPOINT} --label data --mkfs ext4 --volume-id ${VOLUME_ID}
